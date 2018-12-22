@@ -1,0 +1,24 @@
+{
+  "name": "mdpreviewonlinemock",
+  "version": "1.0.0",
+  "description": "MDPreviewの体験デモ用に作成したモックアップ",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwohtsu/MDPreviewOnlineMock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lwohtsu/MDPreviewOnlineMock/issues"
+  },
+  "homepage": "https://github.com/lwohtsu/MDPreviewOnlineMock#readme",
+  "dependencies": {
+    "highlight": "^0.2.4",
+    "marked": "^0.3.6",
+    "materialize-css": "^0.97.8"
+  }
+}

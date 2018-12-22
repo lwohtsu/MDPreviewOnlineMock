@@ -1,0 +1,705 @@
+@charset "UTF-8";
+
+/*リセット*/
+html {
+  font-size: 0.25mm;  /*remで級数指定できる*/
+}
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face{
+  font-family: inconsolata;
+  src: url("inconsolata.otf");
+}
+@font-face{
+  font-family: keyfont;
+  src: url("keyfont.ttf");
+}
+
+/*ページレイアウト*/
+@page{
+  size: 182mm 210mm; 
+  margin-top: 11mm;
+  margin-left: 20mm;
+  margin-right: 17.875mm;
+  margin-bottom: 13mm;
+}
+@page :left {
+  margin-left: 17.875mm;
+  margin-right: 20mm;
+  @bottom-left {
+    font-size: 11rem;
+    content: counter(page) ;
+    margin-bottom: 10mm;
+    writing-mode: horizontal-tb;
+    /* CSS仕様上は@pageルール内に書けばよいが、現時点のvivliostyle.jsの制限によりここに書く */
+  }
+}
+@page :right {
+  margin-left: 20mm;
+  margin-right: 17.875mm;
+  /* 右下ノンブル */
+  @bottom-right {
+    font-size: 11rem;
+    content: counter(page);
+    margin-bottom:  10mm;
+    writing-mode: horizontal-tb;
+    /* CSS仕様上は@pageルール内に書けばよいが、現時点のvivliostyle.jsの制限によりここに書く */
+  }
+}
+
+body{
+  width: 144.125mm;/*182-左右マージン20*/
+  margin: auto;
+  font-size: 12rem;
+  /*line-height: 21rem;*/
+  font-family: "游ゴシック", YuGothic, "Hiragino Kaku Gothic ProN", Roboto, Verdana, "游ゴシック", "YuGothic", Meiryo, sans-serif;
+  background: #fffeee;
+  /*background: #FAFAFA;*/
+}
+.stepblock{
+  background: #fff;
+}
+/*
+イラレから書き出したSVGの幅を強制的に版面に合わせる指定
+版面が変わったらこちらも合わせる必要がある
+*/
+img[src$=".svg"]{
+  width: 144mm;
+  /*background: #fff;*/
+}
+
+
+h3{
+  color: #c82a5f;
+  font-size: 18rem;
+  line-height: 8.25mm;
+  width: 138.25mm;
+  height: 8.25mm;
+  margin-bottom: 4mm;
+  page-break-after: avoid;
+  border-top: dashed 0.5mm #c82a5f;
+  counter-reset: steplist;
+}
+h3:before{
+  content: '→️';
+  width: 8.25mm;
+  height: 8.25mm;
+  border: solid 1mm #c82a5f;
+  border-radius: 50%;
+  margin-right: 2mm;
+}
+.stepblock h3{
+  background: #c82a5f;
+  width: 143mm;
+  height: 9mm;
+  color: #FFF;
+  border-radius: 4mm;
+}
+.stepblock h3::before{
+  content: "●";
+  margin-left: 2mm;
+}
+
+h4{
+  font-size: 18rem;
+  line-height: 5mm;
+  margin-top: 5mm;
+  margin-bottom: 3.6mm;
+  margin-left: 8mm;
+  page-break-after: avoid;
+  width: 75mm;
+  height: 11mm;
+  border-left: dotted 0.5mm #c82a5f;
+  padding-left: 1em;
+  position: relative;
+  counter-reset: kakomilist;
+}
+h4::before{
+  font-size: 42rem;
+  position: absolute;
+  top: 2mm;
+  left: -10mm;
+
+  display: inline-block;
+
+  min-width: 4mm;
+  padding: .5mm 1.5mm .5mm 1.5mm;
+
+  counter-increment: steplist;
+  content: counter(steplist);
+  text-align: center;
+}
+
+h5{
+  font-size: 12.5rem;
+  font-weight: bold;
+  line-height: 5.5mm;
+  page-break-after: avoid;
+}
+/*本文の後に見出しがくるときは1行アキ*/
+p + h2, .figure + h2, pre + h2{
+  margin-top: 5.75mm;
+}
+p + h3, .figure + h3, pre + h3{
+  margin-top: 5.75mm;
+}
+p + h4, .figure + h4, pre + h4{
+  margin-top: 5.75mm;
+}
+h3 + p{
+  margin-top: 3.45mm;
+}
+
+/*本文*/
+p{
+  font-size: 12.5rem;
+  line-height: 5.25mm; /*21rem;*/
+  text-align: justify;
+}
+
+/*引用*/
+blockquote{
+  margin-left: 3.125mm;
+  font-style: italic;
+  margin-top: 5.5mm;
+  margin-bottom: 5.5mm;
+}
+
+/*コードや表の見出し*/
+h6{
+  font-size: 15.5rem;
+  color: #c82a5f;
+  margin-top: 3mm;
+  margin-bottom: 2mm;
+}
+h6::before{
+  content: "▶";
+}
+h6 + .figure{
+  margin-top: 0;
+}
+
+img{
+/*  max-width: 70%;
+  max-height: 100mm;*/
+  border: solid 0.1mm #CCC;
+  vertical-align: bottom;
+}
+
+
+svg{
+  border: solid 0.1mm #CCC; 
+  vertical-align: bottom;   
+}
+
+/*ソースコード*/
+pre{
+  font-size: 12rem;
+  line-height: 5mm;
+  background: #eae4d1;
+  margin-top: 3.6mm;
+  margin-bottom: 4mm;
+  padding-left: 1mm;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inconsolata;
+}
+pre code{
+  font-family: inconsolata;
+}
+/*h6 + pre{
+  margin-left: -8.6mm;
+  width: 130mm;
+}*/
+h6 + ul{
+  margin-top: 0;
+}
+
+/*表組み*/
+table{
+  border-collapse: collapse;
+  margin-top: 3mm;
+  /*margin-left: -8.6mm;*/
+}
+th, td{
+  font-size: 11rem;
+  line-height: 3.75mm;
+  padding: 1.5mm 2mm 1.5mm 2mm;
+  border: solid 0.1mm #FEFEFE;
+}
+th{
+  background: #888;
+  min-width: 36mm;
+  color: #FEFEFE;
+}
+tr{
+  background: #EEE;
+}
+tr:nth-child(even){
+  background: #DDD;
+}
+
+/*箇条書き*/
+li{
+  margin-left: 2em;
+  font-weight: bold;
+}
+ul, ol{
+  margin-top: 5.5mm;
+  margin-bottom: 5.5mm;  
+}
+
+strong{
+  background: #FE8;
+}
+kbd{
+  font-family: keyfont;
+  vertical-align: top;
+}
+
+/****************************/
+/* 以降は子孫セレクタ系のスタイル*/
+/****************************/
+
+/*カバーページ*/
+.coverpage{  
+  overflow: visible;
+  color: #FEFEFE;
+  height: 210mm;
+  width: 182mm;
+  margin-top: -11mm;
+  padding-top: 20.5mm;
+  margin-left: -17.875mm;
+  background-image: url(img/cover.jpg);
+  background-size: cover;
+}
+.coverpage .part{
+  font-size: 180rem;
+  text-align: center;
+  margin-left: 30mm;
+  width: 50mm;
+  height: 40mm;
+  color: #000;
+}
+.coverpage h1{
+  font-size: 42rem;
+  line-height: 11.5mm;
+  text-align: center;
+  width: 75.7mm;
+  height: 50mm;
+  margin-top: 18mm;
+  margin-left: 23mm;
+}
+/*カバーページ内のリード文*/
+.coverpage p{
+  font-size: 15rem;
+  line-height: 5.375mm;
+  text-indent: 0;
+  margin: 0;
+  margin-left: 111mm;
+  margin-top: -30mm;
+  width: 57.212mm;
+  padding: 4mm;
+  background: #c82a5f;
+  border-radius: 2mm;
+}
+
+/*節タイトル*/
+.secheader{
+  width: 139mm;
+  height: 65mm;
+  margin-top: 4mm;
+  padding-top: 10mm;
+  margin-bottom: 9mm;
+  page-break-before: left;
+  background-image: url("img/sechead.jpg");
+  background-size: cover;
+}
+/*Vivliostyle時のみ11mm上げ*/
+.secheader[data-adapt-eloff]{
+  margin-top: -11mm;
+}
+
+.secheader h2{
+  font-size: 28rem;
+  line-height: 9mm;
+  width: 116mm;
+  height: 18.5mm;
+  margin-left: 20.5mm;
+}
+.secheader .subtitle{
+  color: #c82a5f;
+  font-size: 15rem;
+  font-weight: bold;
+  margin-left: 19mm;
+}
+/*セクション頭のリード文*/
+.secheader p{
+  font-size: 14rem;
+  text-indent: 0;
+  line-height: 5.5mm;
+  margin-top: 6.5mm;
+  margin-left: 30.5mm;
+  width: 104.75mm;
+  height: 20mm;
+  font-weight: bold;
+}
+
+
+
+/*図版*/
+.figcaption{
+  font-size: 11rem;
+  line-height: 4mm;
+  margin-top: 2mm;
+  font-weight: bold;
+}
+.figcaption .zuban{
+  color: #FEFEFE;
+  background: #888;
+  padding-left: 1mm;
+  padding-right: 1mm;
+  margin-right: 0.5em;
+}
+.figure{
+/*  margin-top: 4mm;
+  margin-bottom: 6mm;*/
+  position: relative;
+  /*text-align: center;*/
+  width: 130mm;
+  display: flex;
+  flex-direction: row;     /*横並びにする*/
+  align-items: flex-end; /*縦に伸ばさない*/
+  flex-wrap: wrap;
+  position: relative;
+}
+.figure pre{
+  /*width: 55mm;*/
+  margin: 2mm;
+}
+.figure + .figure{
+  margin-top: 0;
+}
+.stepblock pre{
+  border-left: solid 8mm #efbfcf;
+  width: 144mm;  
+}
+.stepblock em{
+  font-style: normal;
+  color: #f00;
+}
+
+/*図中文字*/
+.kakomilist{
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: auto;
+}
+.kakomilist ul{
+  margin: 0;
+}
+.kakomilist li{
+  border: solid 1mm #F00;
+  font-size: 13rem;
+  line-height: 4.25mm;
+  padding-left: 2mm;
+  padding-right: 2mm;
+  padding-top: 1mm;
+  padding-bottom: 1mm;
+  margin: 0;
+  margin-bottom: 1mm;
+  background: rgba(255,255,255,0.7);
+  max-width: 18em;
+  list-style-type: none;
+}
+.figure h4{
+  width: 45mm;
+  margin-top: 0mm;
+  margin-left: 8mm;
+  font-size: 18rem;
+  line-height: 5mm; /*20rem;*/
+}
+.stepblock .kakomilist{
+  left: 90mm;
+  width: 53mm;
+}
+.stepblock .kakomilist li{
+  font-size: 11rem;
+  line-height: 4mm; /*16rem;*/
+  border: solid 0.25mm #f00;
+  border-radius: 2mm;
+  padding: 1.625mm;
+  border-left: solid 5.79mm #f00;
+  position: relative;
+}
+.stepblock .kakomilist li::before{
+  font-size: 20rem;
+  color: #fff;
+  position: absolute;
+  top: 2mm;
+  left: -4mm;
+  display: inline-block;
+  counter-increment: kakomilist;
+  content: counter(kakomilist);
+  text-align: center;
+}
+
+.stepblock .kakomilist li.aocome{
+  border: dashed 0.25mm #f00;
+}
+.stepblock .kakomilist li.aocome::before{
+  counter-increment: none;
+  content: "";
+}
+
+.stepblock .kakomilist li strong{
+  background: none;
+}
+
+.figure{
+  margin-top: 5mm;
+}
+
+/*図版横並び*/
+.figure-h{
+  display: flex;
+  flex-direction: row;     /*横並びにする*/
+  align-items: flex-start; /*縦に伸ばさない*/
+  margin-bottom: 5mm;  
+}
+.figure-h .figure:first-child{
+  margin-right: 3mm;
+}
+/*.figure-h .figure{
+  width: 49%;
+}*/
+.figure-h img{
+  width: 100%;
+}
+/*表キャプション*/
+.tablecaption{
+  font-size: 11rem;
+  line-height: 4mm;
+  margin-top: 2mm;
+  margin-bottom: 5mm;
+  font-weight: bold;
+  margin-left: -8.6mm;
+}
+.tablecaption .hyouban{
+  color: #FEFEFE;
+  background: #888;
+  padding-left: 1mm;
+  padding-right: 1mm;
+  margin-right: 0.5em;
+}
+
+/*コラム*/
+.column{
+  margin-top: 5.5mm;
+  border: solid 1mm #c82a5f;
+  margin-bottom: 5.5mm;
+  padding: 4mm;
+  width: 135mm;
+  position: relative;
+  border-radius: 2mm;
+  page-break-inside: avoid;
+}
+.column h4{
+  width: 133.5mm;
+  height: 8mm;
+  font-size: 16rem;
+  line-height: 8mm;
+  border:none;
+  background: #c82a5f;
+  color: #fff;
+  margin: -4mm;
+  margin-bottom: 4mm;
+  padding: 0;
+  padding-left: 4mm;
+}
+.column h4::before{
+  counter-increment: none;
+}
+.column .col2{
+  width: 126mm;
+  /*段数*/
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  /*段間*/
+  -webkit-column-gap: 5mm;
+  -moz-column-gap: 5mm;
+  column-gap: 5mm;
+  /*罫線*/
+  -webkit-column-rule: dotted 0.15mm #c82a5f;
+  -moz-column-rule: dotted 0.15mm #c82a5f;
+  column-rule: dotted 0.15mm #c82a5f;
+  /*段落*/  
+  font-size: 12rem;
+  line-height: 18.5rem;
+}
+.column .figure{
+  margin-left: 0;
+  margin-bottom: 0;
+  width: 122mm;
+}
+.col2{
+  width: 138.25mm;
+  /*段数*/
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  /*段間*/
+  -webkit-column-gap: 6mm;
+  -moz-column-gap: 6mm;
+  column-gap: 6mm;
+  /*罫線*/
+  -webkit-column-rule: dotted 0.15mm #c82a5f;
+  -moz-column-rule: dotted 0.15mm #c82a5f;
+  column-rule: dotted 0.15mm #c82a5f;
+  /*段落*/
+  font-size: 12.5rem;
+  line-height: 5.25mm;
+  text-align: justify;
+  letter-spacing: -0.3mm;
+}
+.col2 p{
+  letter-spacing: -0.3mm;
+}
+
+/*手順のポイント*/
+.manupoint{
+  width: 137mm;
+  page-break-inside: avoid;
+  background: #ffffe6;
+  padding-bottom: 4mm;
+  border-bottom: solid 0.75mm #3db8b8;
+  border-radius: 5mm;
+}
+.manupoint h4{
+  width: 137mm;
+  height: 14mm;
+  background-image: url("img/manupoint_u.jpg");
+  background-size: cover;
+  border: none;
+  padding-top: 10mm;
+  padding-left: 28mm;
+  margin-left: 0;
+}
+.manupoint h4::before{
+  counter-increment: none;
+  content: '';
+}
+.manupoint .col2{
+  width: 120.25mm;
+  margin:auto;
+  /*段数*/
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  /*段間*/
+  -webkit-column-gap: 6mm;
+  -moz-column-gap: 6mm;
+  column-gap: 6mm;
+  /*罫線*/
+  -webkit-column-rule: none;
+  -moz-column-rule: none;
+  column-rule: none;
+  /*段落*/  
+  font-size: 12.5rem;
+  line-height: 21rem;
+}
+
+/*吹き出し*/
+.fukidashis {
+  position: relative;
+  z-index: 100;
+  font-size: 12rem;
+  line-height: 4.5mm;
+  color: #c82a5f;
+  font-weight: bold;
+  width: 100mm;
+  min-height: 27mm;
+  background: url("img/kao_dummy.png");  
+  background-size: 32mm 27mm;
+  background-repeat: no-repeat;
+  background-position: right;
+  padding: 2mm;
+  padding-right: 34mm;
+  page-break-inside: avoid;
+  margin-left: 40mm;
+  border: solid 0.5mm #c82a5f;
+  border-radius: 2mm;
+  margin-top: 2mm;
+  opacity: 0.65;
+}
+
+.fukidashiv{
+  width: 50mm;
+  margin-left: 90mm;
+  padding-right: 2mm;
+  padding-bottom: 27mm;
+  background-position: right bottom;
+}
+
+/*構文*/
+.syntax{
+  position: relative;
+  margin-top: 4mm;
+  margin-bottom: 14mm;
+}
+.syntax pre{
+  font-size: 15rem;
+  padding: 2mm;
+  padding-left: 5mm;
+}
+.syntax ul{
+  position: absolute;
+  top: 12mm;
+  left: 0;
+  text-align: left;
+  overflow: auto;
+  margin: 0;
+}
+.syntax li{
+  font-size: 11.5rem;
+  line-height: 15rem;
+  border-top: dashed #f00 0.15mm;
+  margin-left: 0;
+  margin-right: 2mm;
+  color: #f00;
+  padding-top: 2mm;
+  list-style-type: none;
+  float: left;
+}
+
+/*編集コメント*/
+.hen{
+  font-size: 10rem;
+  line-height: 3mm;
+  background: #FF0;
+  color:#F00;
+  max-width: 30em;
+}
+
+/*一行空き*/
+.blankline{
+  height: 5.5mm;
+  border: none;
+}
+/*改ページ*/
+.pagebreak{
+  page-break-after: always;
+  border:none;
+}
+
+/*文字詰め*/
+.mojitume{
+  letter-spacing: -0.4mm;
+}

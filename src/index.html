@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>MDPreview Online Mock-up</title>
+        <meta name="robots" content="noindex" />
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
+
+        <link rel="stylesheet" href="css/index.css">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+
+    <body>
+        <!--Navbar-->
+        <nav class="nav-extended">
+            <div class="nav-wrapper">
+            <a href="#" class="brand-logo">MDプレビューONLINEモックアップ</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="http://www.libroworks.co.jp" target="_blank">LibroWorks inc.</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="http://www.libroworks.co.jp" target="_blank">LibroWorks inc.</a></li>
+            </ul>
+
+            <ul class="tabs tabs-transparent">
+                <li class="tab"><a class="active" href="#mdp-tab">MDプレビュー</a></li>
+                <li class="tab"><a href="#desc-tab">このページについて</a></li>
+            </ul>
+            </div>
+        </nav>
+        <!--説明-->
+        <div id="desc-tab" class="col s12 container">
+            <p>
+                このページは<a href="http://libroworks.co.jp/?p=838" target="_blank">MDプレビュー</a>のオンラインデモとして作成したものです。
+                ［MDプレビュー］タブに切り換えてお試しください。
+            </p>
+            <p>スタンドアロン版のMDプレビューとは色々と仕様が結構異なりますが、MarkdownからのCSS組版の体験用とお考えください。</p>
+            <p>プラス点：先行実験も兼ねて、ACEエディタの組み込みと、プレビューからのスクロールを実装しています。</p>
+            <p>
+                マイナス点：クライアントサイドの技術のみで実装しているためにVivliostyleが使用できず、簡易的なページングで表示しています。
+                強制改ページ（page-break-before/after）を指定している場所のみで改ページするため、
+                改ページ指定（---が3つ以上、要上にアキ行）か
+            </p>
+        </div>
+        <!--MDプレビュータブ-->
+        <div id="mdp-tab" class="col s12">
+            <!--ページプレビュー部-->
+            <iframe id="expage-preview" class="row-html" src="sample/iframe.html"></iframe>
+
+            <!--テキストエディタ-->
+            <div id="editor-area">
+                <h3 id="editor-bar"><i class="material-icons tiny">swap_vert</i>Markdown</h3>
+                <div id="markdown-editor"># マークダウン</div>
+                <!--<div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>-->
+            </div>
+
+
+            <!--<div class="fixed-action-btn">
+                <a class="btn-floating btn-large red" href="#modal1">
+                <i class="large material-icons">mode_edit</i>
+                </a>
+            </div>-->
+
+            <!--<div class="fixed-action-btn toolbar">
+                <a class="btn-floating btn-large red">
+                <i class="large material-icons">mode_edit</i>
+                </a>
+                <ul>
+                <li class="waves-effect waves-light" id="btn_openeditor"><a href="#modal1"><i class="material-icons">library_books</i>エディタを開く</a></li>
+                <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">format_quote</i></a></li>
+                <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>
+                <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>
+                </ul>
+            </div>-->
+        
+
+        </div>
+                
+
+
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+        <script src="ace-builds/src-min-noconflict/ace.js"></script>
+        <!--<script src="node_modules/highlight/lib/highlight.js"></script>-->
+        <script src="node_modules/marked/lib/marked.js"></script>
+        <script src="sample/_postReplaceList.js"></script>
+        <script src="sample/mdsrctext.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
